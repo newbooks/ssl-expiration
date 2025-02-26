@@ -13,7 +13,7 @@ ssl-expiration.py example.com
 
 2. Query multiple sites
 ```
-ssl-expiration.py example1.com example1.com example2.com example3.com
+ssl-expiration.py example1.com example2.com example3.com
 ```
 
 3. Query multiple sites specified in file
