@@ -17,7 +17,7 @@ ssl-expiration.py example1.com example1.com example2.com example3.com
 ```
 
 3. Query multiple sites specified in file
-sites.txt:
+sample-sites.txt:
 ```
 example1.com
 example2.com
@@ -25,10 +25,10 @@ example3.com
 ```
 Command:
 ```
-ssl-expiration.py < sitest.txt
+ssl-expiration.py $(cat sample-sites.txt)
 ```
 
 4. Only report sites that will expire within 14 days
 ```
-ssl-expiration.py --days 14 < sitest.txt
+ssl-expiration.py --days 50 $(cat sample-sites.txt)
 ```
