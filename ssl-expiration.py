@@ -26,18 +26,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=helpmsg)
     parser.add_argument('domains', metavar='DOMAIN', type=str, nargs='+',
                         help='Domain names to check')
-    parser.add_argument('--days', type=int, default=14,
+    parser.add_argument('--days', type=int, default=9999,
                         help='Warn if certificate expiration is within specified days')
     args = parser.parse_args()
 
     for domain in args.domains:
-        print(domain)
         expires = ssl_expiry_datetime(domain)
         remaining = expires - datetime.now()
         if remaining < timedelta(days=args.days):
             print(f'{domain} SSL certificate will expire in {remaining.days} days')
-        else:
-            print(f'{domain} SSL certificate is up to date')
 
 
 
