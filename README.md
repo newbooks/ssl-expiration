@@ -30,5 +30,5 @@ ssl-expiration.py $(cat sample-sites.txt)
 
 4. Only report sites that will expire within 14 days
 ```
-ssl-expiration.py --days 50 $(cat sample-sites.txt)
+ssl-expiration.py --days 14 $(cat sample-sites.txt)
 ```
