@@ -30,5 +30,5 @@ ssl-expiration.py < sitest.txt
 
 4. Only report sites that will expire within 14 days
 ```
-ssl-expiration.py -e 14 < sitest.txt
+ssl-expiration.py --days 14 < sitest.txt
 ```
