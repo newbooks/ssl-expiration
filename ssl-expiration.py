@@ -31,6 +31,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     for domain in args.domains:
+        print(domain)
         expires = ssl_expiry_datetime(domain)
         remaining = expires - datetime.now()
         if remaining < timedelta(days=args.days):
