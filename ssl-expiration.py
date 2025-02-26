@@ -20,5 +20,6 @@ def ssl_expiry_datetime(hostname: str) -> datetime:
     return datetime.strptime(ssl_info['notAfter'], ssl_date_fmt)
 
 if __name__ == '__main__':
-    hostname = 'math.levich.net'
+    #hostname = 'math.levich.net'
+    hostname = 'www.google.com'
     print(ssl_expiry_datetime(hostname))
