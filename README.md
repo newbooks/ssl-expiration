@@ -30,7 +30,7 @@ amazon.com
 ```
 Command:
 ```
-./ssl-expiration.py $(cat sample-sites.txt)
+./ssl-expiration.py -l sample-sites.txt
 google.com SSL certificate will expire in 60 days
 apple.com SSL certificate will expire in 49 days
 youtube.com SSL certificate will expire in 60 days
@@ -39,6 +39,6 @@ amazon.com SSL certificate will expire in 151 days
 
 4. Only report sites that will expire within 50 days
 ```
-./ssl-expiration.py --days 50 $(cat sample-sites.txt)
+./ssl-expiration.py -d 50 -l sample-sites.txt
 apple.com SSL certificate will expire in 49 days
 ```
