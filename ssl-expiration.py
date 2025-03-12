@@ -24,8 +24,8 @@ def ssl_expiry_datetime(hostname: str) -> datetime:
 if __name__ == '__main__':
     helpmsg = "Check SSL certificate expiration for given domains"
     parser = argparse.ArgumentParser(description=helpmsg)
-    parser.add_argument('domains', metavar='domain', type=str, default=[], nargs='+',
-                        help='Domain names to check')
+    parser.add_argument('domains', metavar='domain', type=str, nargs='*', default=[],
+                        help='Domain names to check (optional)')
     parser.add_argument('-d', '--days', metavar='days', type=int, default=9999,
                         help='Warn if certificate expiration is within specified days')
     parser.add_argument('-l', '--load', metavar='file', type=str, default=None,
