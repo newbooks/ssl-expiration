@@ -5,8 +5,10 @@ from datetime import datetime
 from datetime import timedelta
 import argparse
 
-def ssl_expiry_datetime(hostname: str) -> datetime:
+def ssl_expiry_datetime(domain):
     ssl_date_fmt = r'%b %d %H:%M:%S %Y %Z'
+    hostname = domain[0]
+    port = domain[1]
 
     context = ssl.create_default_context()
     try:
@@ -20,7 +22,7 @@ def ssl_expiry_datetime(hostname: str) -> datetime:
         return f"Error connecting to {hostname}: {e}"
 
     try:
-        conn.connect((hostname, 443))
+        conn.connect((hostname, port))
         ssl_info = conn.getpeercert()
     except (ssl.SSLError, socket.timeout, socket.gaierror) as e:
         return f"Error connecting to {hostname}: {e}"
@@ -31,7 +33,7 @@ def ssl_expiry_datetime(hostname: str) -> datetime:
 if __name__ == '__main__':
     helpmsg = "Check SSL certificate expiration for given domains"
     parser = argparse.ArgumentParser(description=helpmsg)
-    parser.add_argument('domains', metavar='domain', type=str, nargs='*', default=[],
+    parser.add_argument('domains', metavar='domain[:port]', type=str, nargs='*', default=[],
                         help='Domain names to check (optional)')
     parser.add_argument('-d', '--days', metavar='days', type=int, default=9999,
                         help='Warn if certificate expiration is within specified days')
@@ -46,9 +48,25 @@ if __name__ == '__main__':
             for line in f:
                 url = line.split("#")[0].strip()
                 if url:
-                    domains.append(url)
+                    fields = url.split(":")
+                    if len(fields) == 2:
+                        domain = fields[0]
+                        port = int(fields[1])
+                    else:
+                        domain = url
+                        port = 443
+                    domains.append((domain, port))
     else:
-        domains = args.domains
+        domains = []
+        for url in args.domains:
+            fields = url.split(":")
+            if len(fields) == 2:
+                domain = fields[0]
+                port = int(fields[1])
+            else:
+                domain = url
+                port = 443
+            domains.append((domain, port))
     
     for domain in domains:
         expires = ssl_expiry_datetime(domain)
@@ -57,4 +75,4 @@ if __name__ == '__main__':
         else:
             remaining = expires - datetime.now()
             if remaining < timedelta(days=args.days):
-                print(f'{domain:20s} expires in {remaining.days:4d} days')
+                print(f'{domain[0]:20s} expires in {remaining.days:4d} days')

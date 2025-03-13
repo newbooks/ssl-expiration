@@ -2,6 +2,8 @@
 
 This is a script to detect the expiration date of a web site.
 
+The default https port is 443. If your site uses a different port, you can use domainname:port format to specify alternative port.
+
 It takes in the website from command line with the option to:
 - report the only sites whose expiration date is within certain days
 
@@ -26,7 +28,7 @@ sample-sites.txt:
 google.com
 apple.com
 youtube.com
-amazon.com
+amazon.com:443
 ```
 Command:
 ```
