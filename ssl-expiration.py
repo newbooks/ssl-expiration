@@ -41,12 +41,15 @@ if __name__ == '__main__':
 
     # Load domains from file
     if args.load:
+        domains = []
         with open(args.load) as f:
-            domains = [x for x in args.domains + f.read().splitlines() if x.strip()]
+            for line in f:
+                url = line.split("#")[0].strip()
+                if url:
+                    domains.append(url)
     else:
         domains = args.domains
     
-    print(domains)
     for domain in domains:
         expires = ssl_expiry_datetime(domain)
         if isinstance(expires, str):
